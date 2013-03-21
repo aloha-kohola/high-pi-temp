@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Temperature Sensor</title>
+
+
+<!-- 1. Add these JavaScript inclusions in the head of your page -->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+
+<!--[if IE]>
+<script type="text/javascript" src="http://code.highcharts.com/excanvas.compiled.js"></script>
+<![endif]-->
+
+
+<!-- 2. Add the JavaScript to initialize the chart on document ready -->
+<script type="text/javascript">
+$(function (){    
+            
+            var d = [];
+            var options = {
+            chart: {
+                  renderTo: 'container',
+                  defaultSeriesType: 'spline',
+                },
+            title: {
+                  text: 'Temperature'
+            },
+		subtitle:{
+		  	text: 'living room'
+		},
+            xAxis: {
+                  type: 'datetime',
+            },
+            yAxis: {
+            	title: {
+            		text: 'Temperature in °C'
+            	}
+                  },
+            series: [{
+                        data: d,
+                        name: 'Living Room Temperature'
+                  }]
+            };
+                  
+                  
+                  $.get('temp.log', function(data) {
+                        // Split the lines
+                        var lines = data.split('\n');
+                        $.each(lines, function(lineNo, line) {
+                              var items = line.split(',');
+				                      var temp = parseFloat(items[1]);
+				                      
+
+				                      if(!isNaN(temp)){
+                                  var datetime = items[0].split('-');
+                                  var date = datetime[0].split('/');
+                                  var time = datetime[1].split(':');
+                                  d.push({
+                                    x: Date.UTC(date[2], date[1], date[0], time[0], time[1], time[2]),
+                                    y: temp
+                                  });
+                               	}
+                               })
+                        var chart = new Highcharts.Chart(options);
+                      });
+                  
+                  
+});
+</script>
+
+</head>
+<body>
+
+<!-- 3. Add the container -->
+<div id="container" style="width: 1000px; height: 500px; margin: 0 auto"></div>
+
+
+</body>
+</html>
