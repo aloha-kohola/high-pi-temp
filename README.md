@@ -3,7 +3,7 @@ High-Pi-Temp
 
 Step 1: 
 ___
-Load the One-Wire D18S20 kernel modules.
+Connect your D18S20 to your Raspberry Pi and load the One-Wire D18S20 kernel modules.
 
 
 
