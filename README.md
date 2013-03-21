@@ -15,7 +15,7 @@ Create a cronjob
     
 Add the following line:
 
-    * * * * * echo `date +\%d/\%m/\%Y-\%H:\%M:\%S`,`python "Add your project directory"/temp.py` >> /home/pi/nodejs/temp.log
+    * * * * * echo `date +\%d/\%m/\%Y-\%H:\%M:\%S`,`python "Add your project directory"/temp.py` >> "Add your project directory"/temp.log
          
 The cronjob creates a log file and adds the current temperature and a timestamp every minute.
 
