@@ -4,6 +4,7 @@ High-Pi-Temp
 Step 1: 
 ___
 Connect your D18S20 to your Raspberry Pi and load the One-Wire D18S20 kernel modules.
+Also you have to change the RAM address of your D18S20 in the temp.py file.
 
 
 
